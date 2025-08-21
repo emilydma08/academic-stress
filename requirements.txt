@@ -4,3 +4,4 @@ torch==2.8.0+cpu
 typing_extensions==4.14.1
 numpy==1.26.4
 joblib==1.4.2
+scikit-learn
