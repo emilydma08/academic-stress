@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Stress Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1{
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stress Level Prediction</h1>
+        </div>
+        <div class="form-container">
+            <form action="/predict" method="post">
+                <div class="input-group">
+                    <label for="study_hours">Study Hours</label>
+                    <input type="number" step="0.1" max="24" min="0" name="study_hours" id="study_hours" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="ec_hours">Extracurricular Hours</label>
+                    <input type="number" step="0.1" max="24" min="0" name="ec_hours" id="ec_hours" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="sleep_hours">Sleep Hours</label>
+                    <input type="number" step="0.1" min="0" max="24" name="sleep_hours" id="sleep_hours" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="social_hours">Social Hours</label>
+                    <input type="number" step="0.1" min="0" max="24" name="social_hours" id="social_hours" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="exercise_hours">Exercise Hours</label>
+                    <input type="number" step="0.1" min="0" max="24" name="exercise_hours" id="exercise_hours" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="gpa">GPA</label>
+                    <input type="number" step="0.01" min="1" max="4" name="gpa" id="gpa" required>
+                </div>
+
+                <button type="submit">Predict Stress Level</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

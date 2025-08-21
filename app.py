@@ -29,9 +29,12 @@ scaler = joblib.load("scaler.pkl")
 def index():
     return render_template("index.html")
 
+@app.route("/form", methods=["GET"])
+def form():
+    return render_template("form.html")
+
 @app.route("/predict", methods=["POST"])
 def predict():
-    # grab form values
     input_values = [
         float(request.form["study_hours"]),
         float(request.form["ec_hours"]),
@@ -41,20 +44,20 @@ def predict():
         float(request.form["gpa"]),
     ]
 
-    input_array = np.array([input_values])  # shape (1, 6)
+    input_array = np.array([input_values])  
     input_scaled = scaler.transform(input_array)
     input_tensor = torch.tensor(input_scaled, dtype=torch.float32).to(device)
 
-    # Predict
     with torch.no_grad():
         output = model(input_tensor)
         predicted_class = output.argmax(dim=1).item()
 
-    # Map numeric prediction back to label
+    # Map prediction back to classification group
     class_map = {0: "Low", 1: "Moderate", 2: "High"}
+    subtexts = ["Great job! Your lifestyle habits seem to be keeping your stress under control. Keep maintaining healthy routines around sleep, studying, and social time to stay balanced.", "You’re managing, but some habits may be pushing your stress higher than ideal. Try adjusting one area—like adding more breaks, exercise, or consistent sleep—to bring your stress down.", "Your results suggest that stress is taking a toll. It may help to step back, prioritize rest, and talk to someone you trust. Small changes to sleep, workload balance, or self-care can make a big difference."]
     predicted_label = class_map[predicted_class]
 
-    return render_template("results.html", prediction=predicted_label)
+    return render_template("results.html", prediction=predicted_label, prediction_subtext=subtexts[predicted_class])
 
 
 if __name__ == "__main__":

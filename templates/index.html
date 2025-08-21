@@ -4,178 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academic Stress Predictor</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E8F4F8 0%, #F5F5DC 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #2B2B2B;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            min-height: 90vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #B8E6F0 0%, #87CEEB 100%);
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #2B2B2B;
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .form-container {
-            padding: 40px;
-            flex-grow: 1;
-        }
-
-        form {
-            display: grid;
-            gap: 25px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            color: #2B2B2B;
-            font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-        }
-
-        input {
-            padding: 15px 20px;
-            border: 2px solid #E8F4F8;
-            border-radius: 12px;
-            font-size: 1rem;
-            color: #2B2B2B;
-            background: #FEFEFE;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #87CEEB;
-            box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.2);
-            transform: translateY(-2px);
-        }
-
-        input:hover {
-            border-color: #B8E6F0;
-        }
-
-        button {
-            padding: 18px 40px;
-            background: linear-gradient(135deg, #87CEEB 0%, #B8E6F0 100%);
-            color: #2B2B2B;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(135, 206, 235, 0.3);
-            background: linear-gradient(135deg, #6BB6D6 0%, #A0D8E8 100%);
-        }
-
-        button:active {
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                min-height: 95vh;
-            }
-
-            .header {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .form-container {
-                padding: 30px 20px;
-            }
-
-            input, button {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Stress Level Prediction</h1>
-        </div>
-        <div class="form-container">
-            <form action="/predict" method="post">
-                <div class="input-group">
-                    <label for="study_hours">Study Hours</label>
-                    <input type="number" step="0.1" max="24" min="0" name="study_hours" id="study_hours" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="ec_hours">Extracurricular Hours</label>
-                    <input type="number" step="0.1" max="24" min="0" name="ec_hours" id="ec_hours" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="sleep_hours">Sleep Hours</label>
-                    <input type="number" step="0.1" min="0" max="24" name="sleep_hours" id="sleep_hours" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="social_hours">Social Hours</label>
-                    <input type="number" step="0.1" min="0" max="24" name="social_hours" id="social_hours" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="exercise_hours">Exercise Hours</label>
-                    <input type="number" step="0.1" min="0" max="24" name="exercise_hours" id="exercise_hours" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="gpa">GPA</label>
-                    <input type="number" step="0.01" min="1" max="4" name="gpa" id="gpa" required>
-                </div>
-
-                <button type="submit">Predict Stress Level</button>
-            </form>
-        </div>
+    <div class="home-container">
+        <h1>Stress Level Predictor for Students</h1>
+        <img src="{{ url_for('static', filename='study-too-much.png') }}" alt="Stressed student Image">
+        <p>
+            Ever wondered how your lifestyle choices—like hours of sleep, studying, exercise, and social time—are impacting your stress levels?
+            This AI-powered tool gives you a personalized score from low to high to help you understand where you stand and take steps toward a healthier balance.
+        </p>
+        <a href="{{ url_for('form') }}">
+            <button>Take the form now!</button>
+        </a>
     </div>
 </body>
 </html>
