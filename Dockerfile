@@ -1,24 +1,25 @@
-# Use official Python base image
-FROM python:3.10-slim
+# Use slim Python image
+FROM python:3.11-slim
 
-# Set work directory
+# Set workdir
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+# Install system deps (needed for numpy, torch sometimes)
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    libopenblas-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install
+# Copy requirements first (for caching)
 COPY requirements.txt .
+
+# Install Python deps
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code
+# Copy rest of project
 COPY . .
 
-# Expose port (Render will map it automatically)
+# Expose Render’s port
 EXPOSE 10000
 
-# Command to start Flask app
+# Start Flask
 CMD ["python", "app.py"]
